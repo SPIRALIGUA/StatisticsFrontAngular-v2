@@ -1,0 +1,182 @@
+<div *ngIf="isLoading" id="loading">
+  <img id="loading-image" src="../../../../assets/img/loading-picasso.gif" alt="Loading..." />
+</div>
+<div class="container" [ngClass]="{ minimized: isMinimized, maximized: isMaximized }">
+  <div class="header">
+    <span>Sale Planify</span>
+    <div class="window-controls">
+      <button class="window-button" title="Minimizar" (click)="toggleWindowState('minimize')">▭</button>
+      <button class="window-button" title="Maximizar" (click)="toggleWindowState('maximize')">⧉</button>
+      <button class="window-button close-button" title="Cerrar" (click)="toggleWindowState('close')">✖</button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="left-panel">
+      <button (click)="uploadFile('requerimiento')" class="upload-button">
+        <i class="fa-sharp fa-solid fa-upload"></i> Cargar requerimiento
+        <i class="fa fa-check" *ngIf="fileUploaded['requerimiento']"></i>
+      </button>
+      <button (click)="uploadFile('programa actual')" class="upload-button">
+        <i class="fa-regular fa-file"></i> Cargar programa actual
+        <i class="fa fa-check" *ngIf="fileUploaded['programa actual']"></i>
+      </button>
+      <button (click)="uploadFile('cargar curvas')" class="upload-button">
+        <i class="fa-sharp fa-solid fa-upload"></i> Cargar curvas
+        <i class="fa fa-check" *ngIf="isFileUploaded('cargar curvas')"></i>
+      </button>
+      <button (click)="uploadFile('cargar disp fincas')" class="upload-button">
+        <i class="fa-solid fa-map-pin"></i> Cargar disp fincas
+        <i class="fa fa-check" *ngIf="fileUploaded['cargar disp fincas']"></i>
+      </button>
+      <button (click)="uploadFile('cargar restricciones')" class="upload-button">
+        <i class="fa-solid fa-ban"></i> Cargar restricciones
+        <i class="fa fa-check" *ngIf="fileUploaded['cargar restricciones']"></i>
+      </button>
+      <button (click)="uploadFile('cargar relación curva sem')" class="upload-button">
+        <i class="fa-regular fa-calendar"></i> Cargar relación curva sem
+        <i class="fa fa-check" *ngIf="fileUploaded['cargar relación curva sem']"></i>
+      </button>
+      <button (click)="uploadFile('prioridades')" class="upload-button">
+        <i class="fa-solid fa-list-ol"></i> Cargar prioridades
+        <i class="fa fa-check" *ngIf="fileUploaded['prioridades']"></i>
+      </button>
+    <button (click)="uploadFile('prioridadad por semana')" class="upload-button">
+      <i class="fa-solid fa-file-csv"></i> Cargar prioridad por semana
+      <i class="fa fa-check" *ngIf="fileUploaded['prioridadad por semana']"></i>
+    </button>
+    <button (click)="uploadFile('orden de asignacion')" class="upload-button">
+      <i class="fa-solid fa-arrow-up-wide-short"></i> Cargar orden de asignacion
+      <i class="fa fa-check" *ngIf="fileUploaded['orden de asignacion']"></i>
+    </button>
+    </div>
+    
+    <div class="main-panel">
+      <div class="top-buttons">
+
+      <div class="dropdown">
+  <button class="dropdown-btn" (click)="toggleDropdown()">
+    <i class="fa fa-link"></i> {{ selectedProcess ? selectedProcess : 'Tipo de proceso' }}
+    <i class="fa-solid fa-caret-down"></i>
+  </button>
+  <div class="dropdown-content" *ngIf="isDropdownOpen">
+    <a (click)="onProcessSelection('Ejecutar proyección')">
+      <i class="fa-solid fa-chart-line"></i> Ejecutar proyección
+    </a>
+    <a (click)="onProcessSelection('Ejecutar presupuesto')">
+      <i class="fa-solid fa-seedling"></i> Ejecutar presupuesto
+    </a>
+  </div>
+</div>
+
+<button (click)="executeSelectedProcess()">
+  <i class="fa-solid fa-rocket"></i> Ejecutar proceso
+</button>
+        <button><i class="fa-solid fa-chart-bar"></i> Visualizar sale planify</button>
+        <button><i class="fa-solid fa-chart-bar"></i> Visualizar siembras</button>
+        <button (click)="openEmpalmeModal()">
+          <i class="fa-solid fa-object-group"></i> Realizar empalme
+        </button>
+
+       <button (click)="openConsultModal()" class="btn-consultar">
+        <i class="fa-solid fa-magnifying-glass"></i> Consultar procesos
+      </button>
+
+<div *ngIf="isConsultModalVisible" class="modal-overlay">
+  <div class="modal-container">
+    <div class="modal-header">
+      <span>Consultar Proceso</span>
+      <button class="close-button" (click)="closeConsultModal()">✖</button>
+    </div>
+    <div class="modal-body">
+      <label for="processId">Seleccione el ID del proceso:</label>
+      <div class="select-container">
+        <select [(ngModel)]="selectedProcessId" id="processId">
+          <option *ngFor="let process of executedProcesses" [value]="process.processId">
+            {{ process.processId }}
+          </option>
+        </select>
+        <i class="fa fa-caret-down" aria-hidden="true" id="select-icon"></i>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" (click)="consultProcessStatus()">Consultar</button>
+      <button class="btn-secondary" (click)="closeConsultModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isStatusModalVisible" class="modal-overlay">
+  <div class="modal-container">
+    <div class="modal-header">
+      <span>Estado del Proceso</span>
+      <button class="close-button" (click)="closeStatusModal()">✖</button>
+    </div>
+    <div class="modal-body">
+      <p><strong>Estado:</strong> {{ processStatus }}</p>
+      <p><strong>Mensaje:</strong> {{ processMessage }}</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" (click)="closeStatusModal()">Aceptar</button>
+    </div>
+  </div>
+</div>
+        <div class="dropdown">
+          <button class="dropdown-btn">
+            <i class="fa-solid fa-download"></i> Descargar
+            <i class="fa-solid fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a (click)="downloadFormats()">Descargar formatos</a>
+           
+          </div>
+        </div>
+      </div>
+      <div class="filter-area">
+        <div id="error-modal" class="modal" *ngIf="isErrorModalVisible">
+          <div class="modal-content" [style.borderColor]="modalColor">
+            <div class="modal-header" [style.backgroundColor]="modalColor">
+              <span class="modal-title">{{ modalTitle }}</span>
+              <button class="close-button" (click)="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+              <div *ngIf="modalType === 'error'" class="icon-container">
+                <i class="bi bi-fire flame-icon"></i>
+              </div>
+              <div *ngIf="modalType === 'alert'" class="icon-container">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+              </div>
+              <div *ngIf="modalType === 'info'" class="icon-container">
+                <i class="bi bi-info-circle-fill"></i>
+              </div>
+              <div *ngIf="modalType === 'success'" class="icon-container">
+                <i class="bi bi-check-circle-fill"></i>
+              </div>
+              <div *ngIf="modalType === 'confirm'" class="icon-container">
+                <i class="bi bi-check-circle-fill"></i>
+              </div>
+              <div *ngIf="modalType === 'process'">
+                <p>El ID del proceso en ejecución es:</p>
+                <h2 class="process-id">{{ processId }}</h2>
+                <button class="copy-button" (click)="copyProcessId()">📋 Copiar ID</button>
+              </div>
+              <p>{{ modalMessage }}</p>
+              <div class="error-table-container">
+                <table *ngIf="validationErrors[modalContext]" class="error-table">
+                  <thead>
+                    <tr>
+                      <th>Línea</th>
+                      <th>Descripción del error</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let error of validationErrors[modalContext]">
+                      <td>{{ error.line }}</td>
+                      <td>{{ error.error }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <button *ngIf="modalType === 'success'" class="accept-button" (click)="closeModal()">Aceptar</button>
+              </div>
+            </div>
+          </div>
+        </div>

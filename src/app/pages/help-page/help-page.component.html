@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-lg-8 col-sm-10 col-xs-12">
+        <div class="widget">
+            <div class="widget-header">
+                <i class="widget-icon fa fa-question-circle themeprimary"></i>
+                <span class="widget-caption themeprimary">Ayuda</span>
+            </div>
+
+            <div class="widget-body">
+                <div class="row">
+                    <div *ngIf="isLoadFile == 2" class="empty-manual">
+                        <h4><b>¡No se encontró el manual de usuario!</b></h4>
+                    </div>
+
+                    <div *ngIf="isLoadFile == 3" id="outerContainer">
+                        <div class="pdf-container">
+                            <pdf-viewer
+                                [src]="filepdf"
+                                [rotation]="0"
+                                [original-size]="false"
+                                [show-all]="true"
+                                [fit-to-page]="false"
+                                [zoom]="1"
+                                [zoom-scale]="'page-fit'"
+                                [stick-to-page]="false"
+                                [render-text]="true"
+                                [external-link-target]="'blank'"
+                                [autoresize]="true"
+                                [show-borders]="true"
+                                style="width: 90%; height: 650px;"
+                            ></pdf-viewer>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

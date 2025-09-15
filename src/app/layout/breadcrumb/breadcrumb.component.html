@@ -1,0 +1,7 @@
+<ul class="breadcrumb">
+  <li><i class="fa fa-home"></i><a href="#">Home</a></li>
+  <li *ngFor="let step of steps; last as $last" [ngClass]="{active: $last}" [ngSwitch]="$last">
+    <a *ngSwitchCase="false" [routerLink]="[step.url]">{{step.label}}</a>
+    <span *ngSwitchCase="true">{{step.label}}</span>
+  </li>
+</ul>

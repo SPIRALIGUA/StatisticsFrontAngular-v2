@@ -1,0 +1,158 @@
+<div *ngIf="isLoading" id="loading">
+    <img id="loading-image" src="../../../../assets/img/loading-picasso.gif" alt="Loading..." />
+</div>
+
+<div *ngIf="!isClosed" class="widget-container" [ngClass]="{'maximized': isMaximized, 'minimized': isMinimized}">
+    <div class="widget-header" >
+        <span class="widget-caption" style="color:rgb(28, 165, 184); font-size: 14-large;">
+            <i class="fa fa-tag"></i> Herramienta Empalme Clavel
+        </span>
+
+        <div class="widget-buttons">
+            <a href="#" (click)="toggleMaximize($event)">
+                <i [ngClass]="{'fa fa-expand': !isMaximized, 'fa fa-compress': isMaximized}"></i>
+            </a>
+            <a href="#" (click)="toggleMinimize($event)">
+                <i class="fa fa-minus"></i>
+            </a>
+            <a href="#" (click)="closeWidget($event)">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="widget-content">
+        <tbody class="dropdown-container">
+            <tr>
+                <div class="border-box">
+                    <table>
+                        <tr>
+                            
+                            <td style="padding-left:10px">
+                                <label id="Content_pais" class="font-90 align-left" style="display: block; text-align: left;">Pais:</label>
+                                <select class="fixed-size" (change)="onCountryChange($event)" [(ngModel)]="selectedCountry">
+                                    <option value="">Todos</option>
+                                    <option *ngFor="let country of countryNames" [value]="country">
+                                      {{ country }}
+                                    </option>
+                                  </select>
+                            </td>
+                
+                            <td style="padding-left:30px">
+                                <label id="Content_finca"  class="font-90 align-left" style="display: block; text-align: left;">Finca:</label>        
+                                <select class="fixed-size" (change)="onFarmChange($event)" [(ngModel)]="selectedFarm">
+                                    <option value="">Todos</option>
+                                    <option *ngFor="let farm of farmNames" [value]="farm">
+                                      {{ farm }}
+                                    </option>
+                                  </select>
+                            </td>
+                
+                            <td style="padding-left:30px">
+                                <label id="Content_flor"  class="font-90 align-left" style="display: block; text-align: left;">Producto:</label>                                
+                                <select class="fixed-size" (change)="onFlowerChange($event)" [(ngModel)]="selectedFlower">
+                                    <option value="">Todos</option>
+                                    <option *ngFor="let flower of flowerNames" [value]="flower">
+                                      {{ flower }}
+                                    </option>
+                                  </select>
+                            </td>
+                          
+                            <td style="padding-left:30px">
+                                <label id="Content_variedad"  class="font-90 align-left" style="display: block; text-align: left;">Variedad:</label>                                
+                                <select class="fixed-size" (change)="onVarietyChange($event)" [(ngModel)]="selectedVariety">
+                                    <option value="">Todos</option>
+                                    <option *ngFor="let variety of varietyNames" [value]="variety">
+                                      {{ variety }}
+                                    </option>
+                                  </select>
+                            </td>
+                
+                            <td style="padding-left:30px">
+                                <label id="Content_bloque"  class="font-90 align-left" style="display: block; text-align: left;">Bloque:</label>
+                                <select class="fixed-size"  (change)="onBlockChange($event)" [(ngModel)]="selectedBlock" >
+                                    <option value="">Todos</option>
+                                    <option *ngFor="let block of blocks" [value]="block">
+                                      {{ block }}
+                                    </option>
+                                  </select>
+                            </td>
+                
+                            <td style="padding-left:60px; vertical-align: top;">
+                                <button (click)="captureActiveFilters()" class="btn btn-primary margin-right-20" type="button">
+                                    <i class="fa fa-search"></i> Consultar
+                                </button>               
+                            </td>   
+                        </tr>
+                    </table>
+                </div>
+                            
+        </tbody>
+
+            <div class="btn-select">
+
+                <div class="btn-desing">
+                    <button class="btn btn-primary margin-right-20 "  type="button" (click)="onFileSelectClick()"><i class="fa fa-upload" ></i> Cargar curvas historicas </button>               
+                    <input type="file" id="fileInput" accept=".xls,.xlsx" (change)="onFileSelected($event)" style="display: none;" />
+
+                </div>
+
+                <div class="btn-desing">
+                    <button class="btn btn-primary margin-right-20"  type="button" > <i class="fa fa-link"></i> Asignar curvas </button>               
+                </div>
+
+                <div class="btn-desing">
+                    <button class="btn btn-primary margin-right-20 "  type="button" > <i class="fa fa-plus"></i> / <i class="fa fa-minus"></i>  Generar plantilla adelanto </button>               
+                </div>
+                
+                <div class="btn-desing">
+                    <button class="btn btn-primary margin-right-20 "  type="button" > <i class="fa fa-file"></i> Generar distribución final </button>               
+                </div>
+
+                <div class="btn-desing">
+                    <button class="btn btn-primary margin-right-20"  type="button" ><i class="fa fa-save"></i> Exportar </button>               
+                </div>
+            </div>  
+
+        </div> 
+
+        <!-- MODAL DE ERRORES -->
+        <div *ngIf="isErrorModalVisible" class="custom-modal-overlay">
+            <div class="custom-modal" [ngStyle]="{ 'border-color': '#D73D32' }">
+                <h2 [ngStyle]="{ 'color': '#D73D32' }">Errores detectados!</h2>
+                    <p>{{ errorModalMessage }}</p>
+            
+                    <!-- Sección de errores detallados -->
+                    <div *ngIf="objectKeys(validationErrors).length > 0">
+                        <div *ngFor="let type of objectKeys(validationErrors)">
+                            <h4>{{ getValidationTitle(type) }}:</h4>
+                            <ul>
+                                <li *ngFor="let error of validationErrors[type]">
+                                                        Línea {{ error.line }}: {{ error.error }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+            
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button (click)="closeErrorModal()" class="btn btn-danger">Cerrar</button>
+                    </div>
+            </div>
+        </div>
+        
+        
+        <!-- MODAL DE ALERTAS -->
+        <div *ngIf="isAlertModalVisible" class="custom-modal-overlay">
+            <div class="custom-modal" [ngStyle]="{ 'border-color': '#F29F05' }">
+                <h2 [ngStyle]="{ 'color': '#F29F05' }">Atención:</h2>
+                <p [innerHTML]="alertModalMessage"></p>
+        
+                <div style="display: flex; justify-content: flex-end;">
+                    <button (click)="closeAlertModal()" class="btn btn-warning">Cerrar</button>
+                </div>
+            </div>
+        </div>
+
+
+</div>
+

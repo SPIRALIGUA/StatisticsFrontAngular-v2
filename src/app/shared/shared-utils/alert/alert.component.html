@@ -1,0 +1,9 @@
+<div class="alert" [ngClass]="['alert-' + (type || 'warning'), closeable ? 'alert-dismissable' : null]" role="alert">
+    <button *ngIf="closeable" type="button" class="close" (click)="_close()">
+        <span aria-hidden="true">×</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <div>
+        <span>{{message}}</span>
+    </div>
+</div>

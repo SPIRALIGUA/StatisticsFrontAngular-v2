@@ -1,0 +1,66 @@
+<div id="loading" style="display: none;">
+  <img id="loading-image" src="../../../assets/img/loading-picasso.gif" alt="Loading..." />
+</div>
+<link rel="stylesheet" [href]="urlskincss">
+<!-- Loading Container -->
+<div class="loading-container" data-ng-include=" 'views/partials/loading.html' "></div>
+<!--  /Loading Container -->
+
+<!-- Navbar -->
+<app-navigation (enabled)="onSetExternalCondition($event)" (options)="onSetOptions($event)"
+  (expanded)="onExpanded($event)"></app-navigation>
+<!-- /Navbar -->
+
+<div class="main-container container-fluid">
+  <!-- Page Container -->
+  <div class="page-container">
+    <!-- Page Sidebar -->
+
+    <div class="page-sidebar" id="sidebar"
+      [ngClass]="{'sidebar-fixed' : settings.fixed.sidebar,'menu-compact':settings.menuCompact}">
+      <app-side-bar></app-side-bar>
+    </div>
+    <!-- /Page Sidebar -->
+    <!-- Chat Bar -->
+    <div id="chatbar" class="page-chatbar">
+    </div>
+    <!-- /Chat Bar -->
+    <!-- Page Content -->
+    <div class="page-content" [ngClass]="{'page-content-compat':expanded}">
+      <!-- Page Breadcrumb -->
+      <div class="page-breadcrumbs {{settings.fixed.breadcrumbs ? 'breadcrumbs-fixed' : ''}}">
+        <breadcrumb></breadcrumb>
+      </div>
+      <!-- /Page Breadcrumb -->
+      <!-- Page Header -->
+      <div class="page-header position-relative {{settings.fixed.header ? 'page-header-fixed' : ''}}">
+        <div class="header-title">
+          <h1 header-title>
+          </h1>
+        </div>
+        <!--Header Buttons-->
+        <div class="header-buttons">
+          <a href="" sidebarToggler class="sidebar-toggler"></a>
+          <a href="" refresh class="refresh"></a>
+          <a href="" fullscreen class="fullscreen"></a>
+        </div>
+        <!--Header Buttons End-->
+      </div>
+      <!-- /Page Header -->
+      <!-- Page Body -->
+      <div class="page-body">
+        <router-outlet></router-outlet>
+      </div>
+      <!-- /Page Body -->
+    </div>
+    <!-- /Page Content -->
+  </div>
+  <!-- /Page Container -->
+  <!-- Main Container -->
+</div>
+<ng-template confirm>
+  <confirm-modal-component></confirm-modal-component>
+</ng-template>
+<ng-template message>
+  <message-modal-component></message-modal-component>
+</ng-template>
