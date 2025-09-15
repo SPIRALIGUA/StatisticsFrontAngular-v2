@@ -1,0 +1,9 @@
+.pdf-container {
+    display: flex;
+    justify-content: center;
+}
+
+.empty-manual {
+    text-align: center;
+    color: #1CA5B8;
+}

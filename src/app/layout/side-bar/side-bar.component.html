@@ -1,0 +1,40 @@
+<!-- Page Sidebar Header-->
+<!-- <div class="sidebar-header-wrapper">
+  <input type="text" class="searchinput" title="search" placeholder="search" />
+  <i class="searchicon fa fa-search"></i>
+  <div class="searchhelper">Search Reports, Charts, Emails or Notifications</div>
+</div> -->
+<!-- /Page Sidebar Header -->
+<!-- Sidebar Menu -->
+<ul class="nav sidebar-menu">
+  <ng-template *ngFor="let item of menuItems"
+      [ngTemplateOutlet]="menu"
+      [ngTemplateOutletContext]="{ item: item }">
+    </ng-template>
+</ul>
+
+<ng-template #menu let-item="item">
+  <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'open':isOpen(item)}">
+    <a #link *ngIf="!( item.submenu != null && item.submenu.length > 0)" [routerLink]="item.link">
+      <i class="menu-icon {{item.icon}}"></i>
+      <span class="menu-text"> {{item.text}} </span>
+    </a>
+    <a #link1 *ngIf="( item.submenu != null && item.submenu.length > 0)" [ngClass]="{'menu-dropdown':( item.submenu != null && item.submenu.length > 0)}"
+      (click)="expand(item,link1,( item.submenu != null && item.submenu.length > 0))">
+      <i class="menu-icon {{item.icon}}"></i>
+      <span class="menu-text"> {{item.text}} </span>
+      <i *ngIf="( item.submenu != null && item.submenu.length > 0)" class="menu-expand"></i>
+    </a>
+
+    <ul *ngIf="( item.submenu != null && item.submenu.length > 0)" class="submenu" [@slideInOut]>
+      <ng-template ngFor let-subitem [ngForOf]="item.submenu">
+        <ng-template
+					[ngTemplateOutlet]="menu"
+					[ngTemplateOutletContext]="{ item: subitem }">
+				</ng-template>
+      </ng-template>
+    </ul>
+  </li>
+</ng-template>
+
+<!-- /Sidebar Menu -->

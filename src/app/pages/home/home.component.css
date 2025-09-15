@@ -1,0 +1,29 @@
+p {
+    margin: 0;
+    padding: 0;
+    }
+  
+    #clock {
+    font-family: 'Open Sans', sans-serif;
+    color: #ffffff;
+    text-align: center;
+    color: #1CA5B8;
+    }
+    #clock .time {
+    letter-spacing: 0.05em;
+    font-size: 30px;
+    padding: 5px 0;
+    }
+    #clock .date {
+    letter-spacing: 0.1em;
+    font-size: 23px;
+    }
+    #clock .text {
+    letter-spacing: 0.1em;
+    font-size: 12px;
+    padding: 20px 0 0;
+    }
+    @media screen and (max-width: 768px) {
+      #logo_image {display: none;}
+  }
+  

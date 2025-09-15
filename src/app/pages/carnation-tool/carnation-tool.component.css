@@ -1,0 +1,186 @@
+
+#loading {
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    position: fixed;
+    display: block;
+    opacity: 0.7;
+    background-color: #cecdd4;
+    z-index: 1000;
+    text-align: center;
+}
+.widget-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease;
+    background-color: white; /* Asegúrate de que el fondo del contenedor es blanco */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Añade un poco de sombra para un mejor efecto visual */
+
+    
+
+}
+
+.widget-header {
+    padding: 6px;
+   /* background-color: #89c7f9; /* Fondo específico para la barra */
+    color: rgb(0, 0, 0); /* Color del texto */
+}
+
+.widget-content {
+    padding: 20px;
+    transition: all 0.3s ease;
+    background-color: white; /* Asegúrate de que el fondo del contenido es blanco */
+}
+
+.maximized {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background-color: white; /* Fondo sólido cuando está maximizado */
+}
+
+.minimized .widget-content {
+    display: none; /* Oculta el contenido cuando se minimiza */
+}
+
+.minimized .widget-header {
+    width: 100%; /* Asegúrate de que la barra ocupa el ancho completo */
+}
+
+/* carnation-tool.component.css */
+.dropdown-container {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Asegúrate de que el padding y el border se incluyan en el ancho total */
+}
+
+.dropdown-container div {
+    margin-bottom: 40px; /* Espacio entre cada grupo de label y select */
+}
+
+.dropdown-container label {
+    font-family: 'Open Sans', sans-serif; /* Aplica la fuente Open Sans */
+    font-size: 13px; /* Establece el tamaño de la fuente a 13px */
+}
+
+.btn-select {
+    display: flex;                /* Alinea los botones en una sola línea */
+    justify-content: flex-start;   /* Alinea los botones a la izquierda */
+    gap: 8px;                    /* Espacio entre los botones */
+    
+
+}
+
+.btn-desing {
+    display: inline-block;
+   
+}
+
+button.btn:hover {
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4); /* Aumenta la sombra al pasar el cursor */
+}
+
+.border-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    
+    flex-grow: 1;   /* Permite que el elemento crezca y ocupe todo el ancho disponible */
+    width: 100%;    /* Asegura que el ancho sea del 100% de su contenedor */
+    box-sizing: border-box;  /* Incluye padding y border en el cálculo del ancho */
+    height: 100%; 
+
+
+}
+
+.fixed-size {
+    display: block;
+    font-size: 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    color: #444;
+    line-height: 1.3;
+    padding: .4em 1.4em .3em .8em;
+    width: 192px;
+    max-width: 100%; 
+    box-sizing: border-box;
+    margin: 0;
+    border: 1px solid #aaa;
+    box-shadow: 0 1px 0 1px rgba(0,0,0,.03);
+    border-radius: .3em;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #f4eded;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+      linear-gradient(to bottom, #ffffff 0%,#f7f7f7 100%);
+    background-repeat: no-repeat, repeat;
+    background-position: right .7em top 50%, 0 0;
+    background-size: .65em auto, 100%;
+    
+    
+}
+
+.fixed-size::-ms-expand {
+    display: none;
+   }
+   .fixed-size:hover {
+    border-color: #888;
+   }
+   .fixed-size:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222; 
+    outline: none;
+   }
+   .fixed-size option {
+    font-weight:normal;
+   }
+
+   .custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .custom-modal {
+    background: white;
+    border: 3px solid;
+    border-radius: 10px;
+    padding: 20px;
+    width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  }
+  
+  .custom-modal h2 {
+    margin-top: 0;
+  }
+  
+  .custom-modal ul {
+    padding-left: 20px;
+  }
+  

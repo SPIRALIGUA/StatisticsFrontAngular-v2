@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-header">
+                <i class="widget-icon fa fa-check"></i>
+                <span class="widget-caption">Default Widget</span>
+                <div class="widget-buttons">
+                    <a href="javascript:void(0)" title="" widget-config=""><i class="fa fa-cog"></i></a>
+                    <a href="javascript:void(0)" title="" widget-maximize=""><i class="fa fa-expand"></i></a>
+                    <a href="javascript:void(0)" title="" widget-collapse=""><i class="fa fa-minus"></i></a>
+                    <a href="javascript:void(0)" title="" widget-dispose=""><i class="fa fa-times"></i></a>
+                </div><!--Widget Buttons-->
+            </div><!--Widget Header-->
+            <div class="widget-body">
+                <dx-data-grid
+                id="gridContainer"
+                [dataSource]="dataSource"
+                [showBorders]="true"
+                [remoteOperations]="true">
+                <dxi-column dataField="farm_id"> </dxi-column>
+                <dxi-column dataField="farm_name" dataType="string"> </dxi-column>
+                <dxi-column dataField="farm_short_name" dataType="string"> </dxi-column>
+                <dxo-paging [pageSize]="12"></dxo-paging>
+                <dxo-pager
+                  [showPageSizeSelector]="true"
+                  [allowedPageSizes]="[8, 12, 20]"
+                ></dxo-pager>
+                </dx-data-grid>
+            </div><!--Widget Body-->
+        </div><!--Widget-->
+    </div>
+  </div>
+  
